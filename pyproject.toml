@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jaws-seg"
+version = "1.0.0"
+description = "U-Net segmentation of upper/lower jaw (Maxilla/Mandible) from DICOM CT slices, one model per anatomical plane"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.10"
+dependencies = [
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "numpy>=2.0",
+    "matplotlib==3.11.1",
+    "tqdm==4.70.0",
+    "progressbar2==4.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "ruff==0.16.4",
+]
+wandb = [
+    "wandb",
+]
+
+[project.scripts]
+jaws-train = "jaws_seg.train:main"
+jaws-evaluate = "jaws_seg.evaluate:main"
+jaws-predict = "jaws_seg.predict:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jaws_seg"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Kept byte-identical to the original 2022 implementation (see legacy/unet/)
+# so trained checkpoints stay loadable and the code's provenance stays honest.
+"src/jaws_seg/models/*.py" = ["F403", "F405", "UP008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
