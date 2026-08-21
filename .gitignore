@@ -3,4 +3,9 @@ checkpoints
 *.pth
 __pycache__/
 *.pyc
+.venv/
+*.egg-info/
+outputs/
+.pytest_cache/
+.ruff_cache/
 
