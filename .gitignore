@@ -1,6 +1,6 @@
 
-# Ignore node_modules folder
 checkpoints
-# Ignore all text files
 *.pth
+__pycache__/
+*.pyc
 
