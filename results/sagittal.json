@@ -1,0 +1,13 @@
+{
+  "per_class_dice": {
+    "background": 0.9959747530276479,
+    "maxilla": 0.639545588623211,
+    "mandible": 0.7123729605426106
+  },
+  "mean_dice": 0.6759592745829108,
+  "num_batches": 153,
+  "plane": "sagittal",
+  "split": "test",
+  "checkpoint": "checkpoints\\sagittal\\checkpoint_epoch19.pth",
+  "num_samples": 2448
+}
