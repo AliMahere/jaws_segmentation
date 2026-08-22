@@ -51,5 +51,16 @@ def main(argv=None) -> dict:
     return result
 
 
+def cli(argv=None) -> None:
+    """Entry point for the `jaws-evaluate` console script.
+
+    Kept separate from main() because pip's generated console-script wrapper
+    does `sys.exit(main())` — main() returns the results dict for
+    testability, and sys.exit(<truthy non-int>) would otherwise report a
+    spurious exit code 1 even on success.
+    """
+    main(argv)
+
+
 if __name__ == "__main__":
     main()

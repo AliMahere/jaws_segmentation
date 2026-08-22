@@ -30,8 +30,8 @@ wandb = [
 
 [project.scripts]
 jaws-train = "jaws_seg.train:main"
-jaws-evaluate = "jaws_seg.evaluate:main"
-jaws-predict = "jaws_seg.predict:main"
+jaws-evaluate = "jaws_seg.evaluate:cli"
+jaws-predict = "jaws_seg.predict:cli"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/jaws_seg"]

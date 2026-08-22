@@ -1,0 +1,13 @@
+{
+  "per_class_dice": {
+    "background": 0.9926735581932488,
+    "maxilla": 0.32126682793102795,
+    "mandible": 0.45115188923985006
+  },
+  "mean_dice": 0.38620935858543903,
+  "num_batches": 91,
+  "plane": "axial",
+  "split": "test",
+  "checkpoint": "checkpoints\\axial\\checkpoint_epoch19.pth",
+  "num_samples": 1450
+}

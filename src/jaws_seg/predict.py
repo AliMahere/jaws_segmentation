@@ -53,5 +53,10 @@ def main(argv=None) -> list[Path]:
     return saved_paths
 
 
+def cli(argv=None) -> None:
+    """Entry point for the `jaws-predict` console script (see evaluate.cli)."""
+    main(argv)
+
+
 if __name__ == "__main__":
     main()
