@@ -98,23 +98,6 @@ pytest -q
 
 All 20 tests run on CPU against synthetic data in seconds — no GPU or real dataset required. Covers model forward-shape correctness (including the checkpoint-compatibility regression guard), loss/metric math, dataset correctness (including the mask-resize regression test below), and CLI smoke tests.
 
-## Improvements over the original 2022 prototype
-
-The original prototype lived entirely in one notebook. Porting it into a package surfaced several real bugs, fixed here:
-
-| Bug | Fix |
-|---|---|
-| Label masks resized with **bilinear** interpolation (the same transform used for the input image) — corrupts integer class indices at every mask boundary once truncated to `long` | Separate image (bilinear) and mask (**nearest-neighbor**) resize transforms |
-| Test loaders in the original notebook were accidentally built from the **train** datasets (copy-paste) — the real test set was never evaluated | `build_dataset(plane, split)` globs only that split's own directory; a test guards against split leakage |
-| A `transforms.Compose` augmentation pipeline was built but never used — actual augmentation happened through a separate, unrelated code path | Removed the dead code; the working manual rotate/flip path is documented as intentional |
-| `NUM_WORKERS` was defined but never passed to any `DataLoader` | Wired into `build_dataloader()` |
-| Training always logged/used axial's dataset size regardless of which plane was training | Eliminated structurally — each CLI invocation is scoped to one `--plane` and computes its own sizes |
-| Deprecated `iter(loader).next()` | `next(iter(loader))` |
-| `wandb.init(..., anonymous='must')` forced telemetry on every run | `--wandb-mode {disabled,online,offline}`, default `disabled` |
-| No random seeding anywhere | `set_seed()` called by every CLI entry point |
-
-**Note on the results above:** because the mask-resize bug is now fixed, the reported Dice scores are a *corrected* measurement of the 2022 checkpoints' real quality — not a reproduction of what the original (buggy) notebook would have printed.
-
 ## Limitations & future work
 
 - **2D-only**: each plane is segmented independently slice-by-slice; there's no 3D fusion or volumetric reconstruction, which loses cross-slice context a true 3D model would have.
